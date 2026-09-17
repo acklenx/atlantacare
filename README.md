@@ -1,43 +1,89 @@
-# Astro Starter Kit: Minimal
+# Atlanta Care Center — website
 
-```sh
-npm create astro@latest -- --template minimal
+A static rebuild of [atlantacare.com](https://www.atlantacare.com) that anyone can edit
+from a browser, with no developer and (almost) no hosting bill.
+
+- **Site:** [Astro](https://astro.build) → plain HTML/CSS. 16 pages, ~1 second build.
+- **Content:** Markdown + YAML files in `src/content/`. That *is* the database.
+- **Hosting:** Cloudflare Pages (free) with the source on GitHub (free).
+- **Editing:** a form-based editor at `/admin/` (Option 1, Sveltia CMS) or `/tina-admin/`
+  (Option 2, TinaCMS). Both read and write the same content files; you'd keep one.
+
+```
+src/content/singles/site.yml   phone, address, hours, booking/portal links, menu, footer text
+src/content/singles/home.yml   the home page
+src/content/pages/*.md         every other page (folders = URL paths)
+public/images/                 photos and icons
+public/docs/                   the two privacy PDFs
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Run it locally
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm install
+npm run dev            # site at http://localhost:8171 (Option 1 editor at /admin/)
+npm run dev:tina       # same, plus the Option 2 editor at /tina-admin/
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## How editing works
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Every page is made of a small set of blocks the editor understands:
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Block | What it is |
+|---|---|
+| Call to action | Centered heading + "Book Now" button (the rose watermark) |
+| Text block | Rich text, optionally over a wide background photo |
+| Two columns | Two side-by-side columns; each is text *or* an image |
+| Photo + text rows | Alternating image/text rows with "Learn More" buttons |
+| Questions & answers | Accordion FAQ |
+| Contact details | Phone, address and hours, pulled from Site Settings |
 
-## 🧞 Commands
+Phone number, hours and address live in **Site Settings** and appear everywhere
+automatically (the phone number is auto-linked wherever it's typed).
+In headings, `**bold**` is bold and `*italic*` becomes the handwriting style.
 
-All commands are run from the root of the project, from a terminal:
+### Option 1 — Sveltia CMS (`/admin/`)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- Zero build step; one `<script>` tag (`src/pages/admin.astro`) and one config file
+  (`public/admin/config.yml`).
+- Editors sign in with GitHub. Saving commits straight to the repo; Cloudflare rebuilds
+  the site in ~30 seconds.
+- On a laptop, open `http://localhost:8171/admin/` in Chrome/Edge and choose
+  **Work with Local Repository** → pick this folder. Edits are written to disk
+  and the dev server reloads.
 
-## 👀 Want to learn more?
+### Option 2 — TinaCMS (`/tina-admin/`)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Same content files, but with a WYSIWYG editor for text instead of Markdown.
+- Needs a (free-tier) Tina Cloud account for production sign-in, and a `tinacms build`
+  step before `astro build` (`npm run build:tina`).
+- Locally, `npm run dev:tina` runs Tina's content server; saving writes to disk.
+
+Both can coexist for evaluation. To keep only Sveltia: `npm uninstall tinacms @tinacms/cli`,
+delete `tina/`, `src/pages/tina-admin.astro`, `scripts/tina-proxy.mjs`.
+To keep only Tina: delete `public/admin/` and `src/pages/admin.astro`.
+
+## Going live (Cloudflare Pages + GitHub)
+
+1. Create a GitHub repo (e.g. `atlantacare/atlantacare`) and push this folder to `main`.
+2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pick the repo.
+   - Build command: `npm run build` (or `npm run build:tina` for Option 2)
+   - Output directory: `dist`
+3. Add the custom domain `www.atlantacare.com` (and `atlantacare.com`) in Pages → Custom domains.
+   This needs the domain's DNS on Cloudflare — check who controls it before cutover.
+4. **Option 1 sign-in:** deploy the tiny [sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth)
+   Worker (free; ~5 minutes, it's a "Deploy to Cloudflare" button), create the GitHub OAuth
+   app it asks for, then set `repo` and `base_url` in `public/admin/config.yml`.
+   Editors need a GitHub account with write access to the repo — one shared
+   "atlantacare-web" account is fine.
+5. **Option 2 sign-in:** create a project at app.tina.io, connect the repo, and set
+   `TINA_PUBLIC_CLIENT_ID` and `TINA_TOKEN` as Pages environment variables.
+
+Ongoing cost: the domain registration. Everything else is on free tiers.
+
+## Where the content came from
+
+`../atlantacare-scrape/` holds the original site's rendered HTML, images, theme CSS and
+`extract.py`, which produced `src/content/`. The orphaned Testimonials page (lorem ipsum)
+was not migrated. Fonts: the original used Adobe Fonts (Roboto Condensed + Al Fresco);
+this uses self-hosted Roboto Condensed + Herr Von Muellerhoff, the closest free match.
