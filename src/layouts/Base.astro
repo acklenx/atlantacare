@@ -2,7 +2,7 @@
 import '@fontsource/roboto-condensed/400.css';
 import '@fontsource/roboto-condensed/700.css';
 import '@fontsource/roboto-condensed/400-italic.css';
-import '@fontsource/sacramento/400.css';
+import '@fontsource/herr-von-muellerhoff/400.css';
 import '../styles/global.css';
 import Wave from '../components/Wave.astro';
 import Button from '../components/Button.astro';
@@ -10,6 +10,7 @@ import PortalIcon from '../components/PortalIcon.astro';
 import { md, site } from '../lib/md';
 
 const { title, description } = Astro.props;
+const isHome = Astro.url.pathname === '/';
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const year = new Date().getFullYear();
 ---
@@ -26,7 +27,7 @@ const year = new Date().getFullYear();
   <meta property="og:type" content="website" />
   <meta property="og:image" content={new URL('/images/logo.png', Astro.site)} />
 </head>
-<body>
+<body class={isHome ? 'home' : undefined}>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -40,7 +41,7 @@ const year = new Date().getFullYear();
   </div>
 
   <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
-    <span></span><span></span><span></span>
+    <span class="bars"></span><span class="label">Menu</span>
   </button>
 
   <nav id="site-nav" class="site-nav" data-open="false" aria-label="Main">

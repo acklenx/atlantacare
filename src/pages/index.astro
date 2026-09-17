@@ -4,18 +4,22 @@ import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
 import Wave from '../components/Wave.astro';
-import { md, mdInline } from '../lib/md';
+import { md, mdInline, loadSite } from '../lib/md';
 
+await loadSite();
 const home = (await getEntry('singles', 'home'))!.data;
 const { hero, intro, services, callout } = home;
 ---
 <Base description={home.description}>
   <section class="hero">
     <div class="photo" style={`background-image:url('${hero.image}')`} aria-hidden="true"></div>
-    <div class="content">
-      <h1>{hero.heading}<br /><span class="decorative">{hero.script_heading}</span></h1>
-      <div class="prose" set:html={md(hero.text)} />
-      <Button href={hero.button_url} label={hero.button_label} />
+    <div class="hero-bean" aria-hidden="true"></div>
+    <div class="container">
+      <div class="content">
+        <h1>{hero.heading}<br /><span class="decorative">{hero.script_heading}</span></h1>
+        <div class="prose" set:html={md(hero.text)} />
+        <Button href={hero.button_url} label={hero.button_label} />
+      </div>
     </div>
     <Wave />
   </section>

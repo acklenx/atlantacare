@@ -1,15 +1,17 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Sections from '../components/Sections.astro';
 import Wave from '../components/Wave.astro';
-import { linkPhone } from '../lib/md';
+import { loadSite } from '../lib/md';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
-  return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
+  return pages.map((page) => ({ params: { slug: page.id } }));
 }
-const { page } = Astro.props;
+// Re-read on every render so content edits show up live in `astro dev`.
+await loadSite();
+const page = (await getEntry('pages', Astro.params.slug!))!;
 const { Content } = await render(page);
 const d = page.data;
 ---
