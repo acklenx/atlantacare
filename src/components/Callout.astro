@@ -1,0 +1,13 @@
+---
+import Button from './Button.astro';
+import { md, mdInline, site } from '../lib/md';
+const { heading, text, button_label = 'Book Now', button_url } = Astro.props;
+const url = button_url || site.booking_url;
+---
+<section class="section callout">
+  <div class="container inner">
+    <h2 set:html={mdInline(heading)} />
+    {text && <div class="prose" set:html={md(text)} />}
+    <Button href={url} label={button_label} />
+  </div>
+</section>

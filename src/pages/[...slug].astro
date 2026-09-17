@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Sections from '../components/Sections.astro';
+import Wave from '../components/Wave.astro';
+import { linkPhone } from '../lib/md';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
+}
+const { page } = Astro.props;
+const { Content } = await render(page);
+const d = page.data;
+---
+<Base title={d.title} description={d.description}>
+  <div class="page-title">
+    <p class="h1">{d.title}</p>
+    <Wave />
+  </div>
+  {(d.heading || page.body?.trim()) && (
+    <section class="intro">
+      <div class="container prose">
+        {d.heading && <h1 class="h2">{d.heading}</h1>}
+        <Content />
+      </div>
+    </section>
+  )}
+  <Sections sections={d.sections} />
+</Base>

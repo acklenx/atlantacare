@@ -1,0 +1,68 @@
+name: Atlanta Care Center
+tagline: Free Pregnancy Test | Women’s Health
+phone: 404-870-0788
+address: |-
+  1801 Peachtree St.
+  Suite 225
+  Atlanta, GA 30309
+map_url: https://share.google/xjaZR7zkSpXDrMJjh
+booking_url: https://pp-wfe-102.advancedmd.com/153376/onlinescheduling/v2/patients
+portal_url: https://pp-wfe-100.advancedmd.com/153376/account/logon
+hours:
+- days: Sunday
+  hours: Closed
+- days: Monday – Wednesday
+  hours: 10 AM – 4 PM
+- days: Thursday
+  hours: 10 AM – 5 PM
+- days: Friday
+  hours: Closed
+- days: Saturday
+  hours: Closed
+hours_note: Please remember when scheduling that appointments usually take around one hour.
+footer_blurb: Since 1982, women have relied on the expertise of Atlanta Care Center to guide them through the uncertainty of an unplanned pregnancy. Through our free services, we empower women to make informed choices about their pregnancy.
+disclaimer: |-
+  Atlanta Care Center does not offer annual exams, birth control, abortion services or referrals, prenatal and postnatal care, infertility treatments, or treatment for reproductive tract infections. Atlanta Care Center will offer referrals to local physicians for prenatal care. Medical services are provided in accordance with all applicable laws, and in accordance with pertinent medical standards, under the supervision and direction of a licensed physician. Patient information is held in strict and absolute confidence in accordance with our [Notice of Privacy Policy](/docs/notice-of-privacy-practices.pdf). Releases and permissions are obtained appropriately. Patient information is only disclosed as required by law and when necessary to protect the patient or others against imminent harm.
+
+  For information about how Atlanta Care Center protects your privacy when you are visiting our website, see our [Website Privacy Policy](/docs/website-privacy-policy.pdf).
+documents:
+- label: Website Privacy Policy
+  file: /docs/website-privacy-policy.pdf
+- label: Notice of Privacy Practices
+  file: /docs/notice-of-privacy-practices.pdf
+nav:
+- label: About Us
+  url: /about/
+- label: Our Team
+  url: /team/
+- label: Our Services
+  url: /services/
+  children:
+  - label: Free Pregnancy Test
+    url: /services/free-pregnancy-test/
+  - label: Free Limited Ultrasound
+    url: /services/free-ultrasound/
+  - label: Support Care Plan
+    url: /services/support-care-plan/
+  - label: Already a Parent?
+    url: /services/already-a-parent/
+- label: Women’s Health
+  url: /womens-health/
+  children:
+  - label: Pregnancy Symptoms
+    url: /womens-health/pregnancy-symptoms/
+  - label: Abortion
+    url: /womens-health/abortion/
+  - label: Sexual Health
+    url: /womens-health/sexual-health/
+- label: Pregnancy Support
+  url: ''
+  children:
+  - label: For Guys
+    url: /for-guys/
+  - label: For Students
+    url: /for-students/
+- label: Appointments
+  url: https://pp-wfe-102.advancedmd.com/153376/onlinescheduling/v2/patients
+- label: Contact Us
+  url: /contact/

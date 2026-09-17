@@ -1,0 +1,13 @@
+---
+// Text button with the hand-drawn red underline stroke.
+const { href, label, external } = Astro.props;
+const isExternal = external ?? /^https?:\/\//.test(href ?? '');
+---
+{href && label && (
+  <a href={href} class="button" target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
+    <span class="text-wrap">{label}</span>
+    <svg class="stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166.532 11.636" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0.03,2.785c76.669,1.6,68.033-4,109.524,0s56.593,0,56.593,0L10.03,6.47l147.369,3.666" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </a>
+)}

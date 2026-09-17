@@ -1,0 +1,100 @@
+---
+import Callout from './Callout.astro';
+import Button from './Button.astro';
+import Wave from './Wave.astro';
+import { md, site } from '../lib/md';
+const { sections = [] } = Astro.props;
+---
+{sections.map((s: any) => {
+  switch (s._template) {
+    case 'callout':
+      return <Callout {...s} />;
+
+    case 'text':
+      if (s.background_image) return (
+        <section class="text-bg">
+          <div class="bg" style={`background-image:url('${s.background_image}')`} aria-hidden="true" />
+          <Wave class="top" /><Wave class="bottom" />
+          <div class="container">
+            <div class="prose" set:html={md(s.body)} />
+            {s.button_label && <p class="button-center"><Button href={s.button_url} label={s.button_label} /></p>}
+          </div>
+        </section>
+      );
+      return (
+        <section class="section">
+          <div class="container">
+            <div class={`prose ${s.columns === 3 ? 'cols-3' : ''}`} set:html={md(s.body)} />
+            {s.button_label && <p class="button-center"><Button href={s.button_url} label={s.button_label} /></p>}
+          </div>
+        </section>
+      );
+
+    case 'two_column':
+      return (
+        <section class="section two-col">
+          <div class="container">
+            <div>
+              {s.left_image ? <img src={s.left_image} alt={s.left_image_alt ?? ''} loading="lazy" /> : <div class="prose" set:html={md(s.left)} />}
+            </div>
+            <div>
+              {s.right_image ? <img src={s.right_image} alt={s.right_image_alt ?? ''} loading="lazy" /> : <div class="prose" set:html={md(s.right)} />}
+            </div>
+          </div>
+        </section>
+      );
+
+    case 'cards':
+      return (
+        <section class="section cards">
+          <div class="container">
+            {s.items.map((it: any, i: number) => (
+              <div class={`row ${i % 2 === 0 ? 'flip' : ''}`}>
+                {it.image && <div class="media"><img src={it.image} alt={it.image_alt ?? ''} loading="lazy" /></div>}
+                <div>
+                  <h2>{it.title}</h2>
+                  <div class="prose" set:html={md(it.text)} />
+                  {it.link_label && <Button href={it.link_url} label={it.link_label} />}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+
+    case 'faq':
+      return (
+        <section class="section faq">
+          <div class="container">
+            {s.items.map((it: any) => (
+              <details>
+                <summary>{it.question}</summary>
+                <div class="answer prose" set:html={md(it.answer)} />
+              </details>
+            ))}
+          </div>
+        </section>
+      );
+
+    case 'contact_info':
+      return (
+        <section class="section">
+          <div class="container contact-grid">
+            <div class="prose">
+              <h2 class="h3">Contact Our Pregnancy Clinic</h2>
+              <p>Phone: <a href={`tel:${site.phone}`}>{site.phone}</a></p>
+              <h2 class="h3">How to Find Our Clinic</h2>
+              <p><a href={site.map_url} target="_blank" rel="noopener" set:html={site.address.replace(/\n/g, '<br>')} /></p>
+            </div>
+            <div class="prose">
+              <h2 class="h3">Appointment Hours</h2>
+              <ul class="hours">
+                {site.hours.map((h: any) => <li><strong>{h.days}</strong><span>{h.hours}</span></li>)}
+              </ul>
+              {site.hours_note && <p>{site.hours_note}</p>}
+            </div>
+          </div>
+        </section>
+      );
+  }
+})}
