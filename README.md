@@ -6,8 +6,8 @@ from a browser, with no developer and (almost) no hosting bill.
 - **Site:** [Astro](https://astro.build) → plain HTML/CSS. 16 pages, ~1 second build.
 - **Content:** Markdown + YAML files in `src/content/`. That *is* the database.
 - **Hosting:** Cloudflare Pages (free) with the source on GitHub (free).
-- **Editing:** a form-based editor at `/admin/` (Option 1, Sveltia CMS) or `/tina-admin/`
-  (Option 2, TinaCMS). Both read and write the same content files; you'd keep one.
+- **Editing:** a form-based editor at `/admin/` ([Sveltia CMS](https://github.com/sveltia/sveltia-cms))
+  that reads and writes the content files.
 
 ```
 src/content/singles/site.yml   phone, address, hours, booking/portal links, menu, footer text
@@ -21,8 +21,7 @@ public/docs/                   the two privacy PDFs
 
 ```bash
 npm install
-npm run dev            # site at http://localhost:8171 (Option 1 editor at /admin/)
-npm run dev:tina       # same, plus the Option 2 editor at /tina-admin/
+npm run dev            # site at http://localhost:8171, editor at /admin/
 ```
 
 ## How editing works
@@ -42,7 +41,7 @@ Phone number, hours and address live in **Site Settings** and appear everywhere
 automatically (the phone number is auto-linked wherever it's typed).
 In headings, `**bold**` is bold and `*italic*` becomes the handwriting style.
 
-### Option 1 — Sveltia CMS (`/admin/`)
+### The editor — Sveltia CMS (`/admin/`)
 
 - Zero build step; one `<script>` tag (`src/pages/admin.astro`) and one config file
   (`public/admin/config.yml`).
@@ -52,32 +51,19 @@ In headings, `**bold**` is bold and `*italic*` becomes the handwriting style.
   **Work with Local Repository** → pick this folder. Edits are written to disk
   and the dev server reloads.
 
-### Option 2 — TinaCMS (`/tina-admin/`)
-
-- Same content files, but with a WYSIWYG editor for text instead of Markdown.
-- Needs a (free-tier) Tina Cloud account for production sign-in, and a `tinacms build`
-  step before `astro build` (`npm run build:tina`).
-- Locally, `npm run dev:tina` runs Tina's content server; saving writes to disk.
-
-Both can coexist for evaluation. To keep only Sveltia: `npm uninstall tinacms @tinacms/cli`,
-delete `tina/`, `src/pages/tina-admin.astro`, `scripts/tina-proxy.mjs`.
-To keep only Tina: delete `public/admin/` and `src/pages/admin.astro`.
-
 ## Going live (Cloudflare Pages + GitHub)
 
-1. Create a GitHub repo (e.g. `atlantacare/atlantacare`) and push this folder to `main`.
+1. The source lives at [acklenx/atlantacare](https://github.com/acklenx/atlantacare) (`main`).
 2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pick the repo.
-   - Build command: `npm run build` (or `npm run build:tina` for Option 2)
+   - Build command: `npm run build`
    - Output directory: `dist`
 3. Add the custom domain `www.atlantacare.com` (and `atlantacare.com`) in Pages → Custom domains.
    This needs the domain's DNS on Cloudflare — check who controls it before cutover.
-4. **Option 1 sign-in:** deploy the tiny [sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth)
+4. **Editor sign-in:** deploy the tiny [sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth)
    Worker (free; ~5 minutes, it's a "Deploy to Cloudflare" button), create the GitHub OAuth
-   app it asks for, then set `repo` and `base_url` in `public/admin/config.yml`.
+   app it asks for, then set `base_url` in `public/admin/config.yml` to the Worker's URL.
    Editors need a GitHub account with write access to the repo — one shared
    "atlantacare-web" account is fine.
-5. **Option 2 sign-in:** create a project at app.tina.io, connect the repo, and set
-   `TINA_PUBLIC_CLIENT_ID` and `TINA_TOKEN` as Pages environment variables.
 
 Ongoing cost: the domain registration. Everything else is on free tiers.
 

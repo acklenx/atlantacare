@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Disallow: /tina-admin/
 Sitemap: https://www.atlantacare.com/sitemap-index.xml

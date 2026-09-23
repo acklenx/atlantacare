@@ -6,7 +6,7 @@
 
 backend:
   name: github
-  repo: atlantacare/atlantacare      # <- change to OWNER/REPO (folder name must match repo name for local editing)
+  repo: acklenx/atlantacare
   branch: main
   base_url: https://sveltia-cms-auth.YOUR-ACCOUNT.workers.dev   # <- change after deploying the auth worker
 

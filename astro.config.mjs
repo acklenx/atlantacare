@@ -6,5 +6,4 @@ export default defineConfig({
   trailingSlash: 'always',
   build: { format: 'directory' },
   devToolbar: { enabled: false },
-  vite: { server: { watch: { ignored: ['**/tina/__generated__/**', '**/public/tina-admin/**'] } } },
 });
