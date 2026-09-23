@@ -164,7 +164,8 @@ strong { font-weight: 700; }
     font-family: var(--font-body); font-weight: 700; font-size: 1.25rem; text-transform: uppercase; letter-spacing: .02em;
     transform: rotate(-90deg); transition: opacity .55s;
   }
-  .menu-toggle[aria-expanded="true"] { max-height: 55px; }
+  /* shrink without the springy overshoot, which would dip below the 55px square */
+  .menu-toggle[aria-expanded="true"] { max-height: 55px; transition-timing-function: cubic-bezier(.42,.97,.52,1); }
   .menu-toggle[aria-expanded="true"] .label { opacity: 0; }
 }
 
