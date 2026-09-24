@@ -9,9 +9,12 @@ sections:
       **Easily Schedule an**
       Appointment at
       **Atlanta Care Center Today**
+    text: ''
     button_label: Book Now
     button_url: https://pp-wfe-102.advancedmd.com/153376/onlinescheduling/v2/patients
   - _template: text
+    button_label: Book Now
+    button_url: ''
     body: |-
       ## What You Can Expect at Atlanta Care Center
 
@@ -28,23 +31,32 @@ sections:
       - Support care
       - Dedicated support care for fathers
       - Dedicated support care for pregnant students
+    background_image: ''
+    columns: null
   - _template: text
+    button_label: Book Now
+    button_url: ''
     body: |-
       ## How to Make an Appointment for Free Pregnancy Testing & Consultation
 
       It’s easy to make an appointment for free pregnancy testing and consultation at Atlanta Care Center.
 
       You can…
+    background_image: ''
+    columns: null
   - _template: two_column
     left: |-
       ### Schedule an appointment online
 
       We offer a convenient option to schedule your pregnancy testing and consultation online. [Click here to schedule an appointment.](https://pp-wfe-102.advancedmd.com/153376/onlinescheduling/v2/patients)
+    left_image: ''
+    left_image_alt: ''
     right: |-
       ### Call our office
 
       For your convenience, call our office at 404-870-0788. We will respond as soon as we can during regular office hours.
+    right_image: ''
     right_image_alt: ''
 ---
 
-Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy. - qla
+Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy.
