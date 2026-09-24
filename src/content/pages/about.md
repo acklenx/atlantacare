@@ -1,7 +1,7 @@
 ---
 title: About Us
 heading: About Our Pregnancy Clinic
-description: Atlanta Care Center is a pregnancy clinic serving Atlanta women facing unintended pregnancies. We offer free pregnancy testing, free ultrasounds, and support(qla).
+description: Atlanta Care Center is a pregnancy clinic serving Atlanta women facing unintended pregnancies. We offer free pregnancy testing, free ultrasounds, and support.
 order: 1
 sections:
   - _template: callout
@@ -59,4 +59,4 @@ sections:
     right_image_alt: ''
 ---
 
-Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy.
+Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy. - qla
