@@ -1,6 +1,9 @@
 ---
 // Text button with the hand-drawn red underline stroke.
-const { href, label, external } = Astro.props;
+// A blank link means the online booking link from Site Settings.
+import { site } from '../lib/md';
+const { label, external } = Astro.props;
+const href = Astro.props.href || site.booking_url;
 const isExternal = external ?? /^https?:\/\//.test(href ?? '');
 ---
 {href && label && (

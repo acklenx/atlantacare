@@ -1,9 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 
+// The CMS can write unused optional fields as null or ''; treat those as absent
+// so a stray empty field never fails the build.
+const dropEmpty = (v: unknown) =>
+  v && typeof v === 'object' && !Array.isArray(v)
+    ? Object.fromEntries(Object.entries(v).filter(([, x]) => x !== null && x !== ''))
+    : v;
+
 // One markdown file per page. Nested folders become nested URLs
 // (services/free-ultrasound.md -> /services/free-ultrasound/).
-const section = z.discriminatedUnion('_template', [
+const section = z.preprocess(dropEmpty, z.discriminatedUnion('_template', [
   z.object({
     _template: z.literal('callout'),
     heading: z.string(),
@@ -30,21 +37,21 @@ const section = z.discriminatedUnion('_template', [
   }),
   z.object({
     _template: z.literal('cards'),
-    items: z.array(z.object({
+    items: z.array(z.preprocess(dropEmpty, z.object({
       title: z.string(),
       text: z.string().optional(),
       image: z.string().optional(),
       image_alt: z.string().optional(),
       link_label: z.string().optional(),
       link_url: z.string().optional(),
-    })),
+    }))),
   }),
   z.object({
     _template: z.literal('faq'),
     items: z.array(z.object({ question: z.string(), answer: z.string() })),
   }),
   z.object({ _template: z.literal('contact_info') }),
-]);
+]));
 
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
