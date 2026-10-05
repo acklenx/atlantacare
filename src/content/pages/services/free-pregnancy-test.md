@@ -1,5 +1,5 @@
 ---
-title: Free Pregnancy Testing in Atlanta
+title: Our Services
 heading: Free Pregnancy Testing in Atlanta
 description: Atlanta Care Center offers free pregnancy tests to women in the Atlanta area. Call 404-870-0788 or text 404-492-6187 to schedule an appointment.
 order: 4
