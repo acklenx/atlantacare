@@ -48,4 +48,4 @@ sections:
       For your convenience, call our office at 404-870-0788. We will respond as soon as we can during regular office hours.
 ---
 
-Quincy's version of Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy.
+Atlanta Care Center provides services to help women facing unintended pregnancies, including free of charge pregnancy testing and consultation, free of charge pregnancy diagnosis including the verification of an intra-uterine pregnancy via ultrasound for qualified patients, and evidence-based abortion education. We’re committed to giving you the help, care, and compassion you need to make an informed choice regarding your pregnancy. -qla
