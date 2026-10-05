@@ -1,5 +1,5 @@
 ---
-title: Support Care Plan – Your Pregnancy Resource
+title: Our Services
 heading: Support Care Plan – Your Pregnancy Resource
 description: Since 1982, women have trusted Atlanta Care Center as a reliable pregnancy resource. Our team will help navigate your choices and offer hope-filled support.
 order: 6
