@@ -9,7 +9,7 @@ import Button from '../components/Button.astro';
 import PortalIcon from '../components/PortalIcon.astro';
 import { md, site } from '../lib/md';
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const isHome = Astro.url.pathname === '/';
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const year = new Date().getFullYear();
@@ -20,6 +20,7 @@ const year = new Date().getFullYear();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{pageTitle}</title>
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   {description && <meta name="description" content={description} />}
   <link rel="icon" href="/favicon.ico" sizes="16x16" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

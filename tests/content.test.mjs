@@ -146,3 +146,34 @@ scenario('sections can carry several buttons, and junk in that list is ignored',
   assert.ok(links.some((l) => l.startsWith('Kept -> ')), 'a button without a link goes to the booking link');
   assert.ok(!main.includes('/nolabel/'), 'a button without text is dropped');
 });
+
+
+// ---------------------------------------------------------------- short links & QR codes
+scenario('short links become a redirect table + Function routes, and are listed with QR codes at /admin/links/', (t, sb) => {
+  sb.write('src/content/links/7k.md', `---\ncode: 7k\nurl: https://supportatlantacare.com/events/\nlabel: Flyer for supporters\n---\n`);
+  sb.write('src/content/links/bk.md', `---\ncode: bk\nurl: /services/free-pregnancy-test/\n---\n`);
+  sb.write('src/content/links/bad.md', `---\ncode: bad\nurl: https://example.org\n---\n`);
+  sb.write('src/content/links/dupe.md', `---\ncode: 7k\nurl: https://example.org/dupe\n---\n`);
+  sb.write('src/content/links/empty.md', ``);
+  sb.page('ab', `---\ntitle: A real page at /ab/\n---\n`);
+  sb.write('src/content/links/ab.md', `---\ncode: ab\nurl: https://example.org/hidden\n---\n`);
+  const out = mustBuild(t, sb);
+  assert.deepEqual(JSON.parse(sb.read('dist/short-links.json')), { '7k': 'https://supportatlantacare.com/events/', bk: '/services/free-pregnancy-test/' });
+  assert.deepEqual(JSON.parse(sb.read('dist/_routes.json')).include, ['/api/*', '/7k*', '/bk*'], 'only short codes and the stats API invoke Functions');
+  assert.match(out, /short link "ab".*already a page/);
+  const html = sb.html('/admin/links/');
+  assert.match(html, /www\.atlantacare\.com\/7k/);
+  assert.match(html, /data-text="https:\/\/www\.atlantacare\.com\/bk"/);
+  assert.doesNotMatch(html, /\/bad"|example\.org\/hidden/);
+  assert.match(html, /next free code: <code[^>]*>aa<\/code>/);
+  assert.match(html, /<meta name="robots" content="noindex, nofollow"/, 'the admin page is hidden from search engines');
+  assert.doesNotMatch(sb.read('dist/sitemap-0.xml'), /admin\/links/);
+  assert.ok(sb.exists('dist/ab/index.html'));
+});
+
+scenario('with no short links at all the build still writes the tables', (t, sb) => {
+  sb.remove('src/content/links');
+  mustBuild(t, sb);
+  assert.equal(sb.read('dist/short-links.json'), '{}');
+  assert.match(sb.html('/admin/links/'), /None yet/);
+});
